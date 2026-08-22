@@ -1,7 +1,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
-/* 基本カラー変数 */
 :root {
   --bg-color: #f8f9fa;
   --card-bg: #ffffff;
@@ -14,7 +13,6 @@ html { scroll-behavior: smooth; }
   --box-bg: #f0f7ff;
 }
 
-/* ダークモード設定 */
 body.dark-mode {
   --bg-color: #0f172a;
   --card-bg: #1e293b;
@@ -41,7 +39,7 @@ body {
   background-color: var(--primary-color); width: 0%; z-index: 9999;
 }
 
-/* ヘッダーレイアウト */
+/* ヘッダー */
 .site-header {
   background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
@@ -60,11 +58,10 @@ body {
 .logo { font-size: 1.4rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
 .nav-menu ul { list-style: none; display: flex; gap: 16px; }
 .nav-menu a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; }
-.nav-menu a:hover { color: var(--primary-color); }
+.nav-menu a:hover, .nav-menu a.active { color: var(--primary-color); }
 
 .header-tools { display: flex; align-items: center; gap: 16px; }
 
-/* 改善点1: ヘッダータイマーのスタイル */
 .header-timer {
   display: flex; align-items: center; gap: 8px;
   background-color: var(--bg-color);
@@ -79,7 +76,6 @@ body {
 }
 .timer-btn:hover { color: var(--primary-color); }
 
-/* 改善点2: ダークモード切り替えボタン */
 .theme-toggle-btn {
   background: var(--bg-color);
   border: 1px solid var(--border-color);
@@ -89,63 +85,42 @@ body {
   color: var(--text-color); transition: 0.2s;
 }
 
-/* メインコンテンツ */
+/* メインレイアウト */
 .main-content { padding: 40px 0 80px; }
+.schedule-page-header { text-align: center; margin-bottom: 32px; }
 
-.hero-section {
+/* ダッシュボード */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.dash-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 12px; padding: 40px; margin-bottom: 40px; text-align: center;
-}
-.category {
-  display: inline-block; background-color: var(--box-bg); color: var(--primary-color);
-  font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
-}
-.hero-title { font-size: 2rem; color: var(--text-color); font-weight: 700; margin-bottom: 16px; }
-.hero-description { color: var(--text-sub); max-width: 700px; margin: 0 auto; }
-
-/* 記事カード配置 */
-.section-heading { font-size: 1.5rem; color: var(--text-color); margin-bottom: 24px; font-weight: 700; }
-.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.related-card {
-  display: block; background-color: var(--card-bg); border: 1px solid var(--border-color);
-  border-radius: 8px; padding: 24px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
-}
-.related-card:hover { transform: translateY(-3px); border-color: var(--primary-color); }
-.related-tag { font-size: 0.75rem; font-weight: 700; color: var(--primary-color); margin-bottom: 8px; }
-.related-card-title { font-size: 1.05rem; font-weight: 700; color: var(--text-color); margin-bottom: 8px; line-height: 1.4; }
-.related-card-snippet { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }
-
-.sns-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 10px 28px; border-radius: 30px; color: #ffffff; text-decoration: none; font-weight: 600;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  display: flex; flex-direction: column; gap: 6px;
 }
 
-.site-footer {
-  text-align: center; padding: 30px 20px; font-size: 0.85rem; color: var(--text-sub);
-  border-top: 1px solid var(--border-color); background-color: var(--header-bg);
-}
+.dash-label { font-size: 0.85rem; color: var(--text-sub); font-weight: 600; }
+.dash-value { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
+.dash-value.text-green { color: #10b981; }
+.dash-value.text-blue { color: var(--primary-color); }
 
-@media (max-width: 768px) {
-  .header-container { flex-direction: column; align-items: flex-start; }
-  .header-tools { width: 100%; justify-content: space-between; margin-top: 8px; }
-  .hero-section { padding: 24px; }
-  .hero-title { font-size: 1.5rem; }
-}
-/* スケジュール機能用スタイル */
-.nav-menu a.active {
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 4px;
-}
-
+/* スケジュールフォーム */
 .schedule-form-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 32px;
+  padding: 28px;
+  margin-bottom: 40px;
 }
+
+.form-card-title { font-size: 1.2rem; margin-bottom: 20px; color: var(--text-color); }
 
 .schedule-form {
   display: flex;
@@ -159,10 +134,10 @@ body {
   flex-direction: column;
   gap: 6px;
   flex: 1;
-  min-width: 140px;
+  min-width: 150px;
 }
 
-.form-group.flex-2 { flex: 2; min-width: 240px; }
+.form-group.flex-2 { flex: 2; min-width: 260px; }
 
 .form-group label {
   font-size: 0.85rem;
@@ -189,20 +164,21 @@ body {
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  padding: 11px 24px;
+  padding: 0 24px;
+  height: 44px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s;
-  height: 42px;
+  transition: background-color 0.2s;
 }
 
-.add-task-btn:hover { opacity: 0.9; }
+.add-task-btn:hover { background-color: var(--primary-hover); }
 
+/* タスク一覧 */
 .schedule-header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .clear-btn {
@@ -217,11 +193,7 @@ body {
 
 .clear-btn:hover { color: #ef4444; border-color: #ef4444; }
 
-.schedule-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.schedule-list { display: flex; flex-direction: column; gap: 12px; }
 
 .schedule-item {
   display: flex;
@@ -229,13 +201,13 @@ body {
   justify-content: space-between;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
-  padding: 16px 20px;
-  border-radius: 10px;
-  transition: 0.2s;
+  padding: 18px 20px;
+  border-radius: 12px;
+  transition: transform 0.15s, opacity 0.2s;
 }
 
 .schedule-item.completed {
-  opacity: 0.55;
+  opacity: 0.5;
   background-color: var(--bg-color);
 }
 
@@ -243,57 +215,53 @@ body {
   text-decoration: line-through;
 }
 
-.task-info-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+.task-left { display: flex; align-items: center; gap: 14px; flex-grow: 1; }
 
 .task-checkbox {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+  width: 22px; height: 22px;
+  cursor: pointer; accent-color: var(--primary-color);
 }
 
 .task-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background-color: var(--box-bg);
-  color: var(--primary-color);
+  font-size: 0.75rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+  background-color: var(--box-bg); color: var(--primary-color);
+  white-space: nowrap;
 }
 
-.task-title-text {
-  font-weight: 600;
-  color: var(--text-color);
-}
+.task-title-text { font-weight: 600; color: var(--text-color); }
 
-.task-time-badge {
-  font-size: 0.85rem;
-  color: var(--text-sub);
-  background: var(--bg-color);
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
+.task-right { display: flex; align-items: center; gap: 12px; }
+
+.task-pomo-badge {
+  font-size: 0.85rem; color: var(--text-sub);
+  background: var(--bg-color); padding: 4px 10px;
+  border-radius: 6px; border: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
 .delete-task-btn {
-  background: none;
-  border: none;
-  color: var(--text-sub);
-  cursor: pointer;
-  font-size: 1.1rem;
-  margin-left: 12px;
+  background: none; border: none; color: var(--text-sub);
+  cursor: pointer; font-size: 1.2rem; padding: 2px 6px;
 }
 
 .delete-task-btn:hover { color: #ef4444; }
 
-.empty-schedule-msg {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-sub);
-  background-color: var(--card-bg);
-  border: 1px dashed var(--border-color);
+.empty-msg {
+  text-align: center; padding: 48px; color: var(--text-sub);
+  background-color: var(--card-bg); border: 2px dashed var(--border-color);
   border-radius: 12px;
+}
+
+.site-footer {
+  text-align: center; padding: 30px 20px; font-size: 0.85rem; color: var(--text-sub);
+  border-top: 1px solid var(--border-color); background-color: var(--header-bg);
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .schedule-form { flex-direction: column; align-items: stretch; }
+  .add-task-btn { height: 44px; }
+  .schedule-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .task-right { width: 100%; justify-content: space-between; }
 }
