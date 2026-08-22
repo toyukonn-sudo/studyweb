@@ -10,9 +10,7 @@ html {
 }
 
 body {
-  font-family:
-    "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
-    MeiRyo, sans-serif;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", MeiRyo, sans-serif;
   background-color: #f8f9fa;
   color: #2b2b2b;
   line-height: 1.85;
@@ -32,7 +30,7 @@ body {
   transition: width 0.1s ease-out;
 }
 
-/* --- ヘッダー --- */
+/* --- ヘッダー & ナビゲーションメニュー --- */
 .site-header {
   background-color: #ffffff;
   border-bottom: 1px solid #eaeaea;
@@ -40,6 +38,12 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .container {
@@ -53,6 +57,25 @@ body {
   font-weight: 700;
   color: #0066cc;
   letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-menu a:hover {
+  color: #0066cc;
 }
 
 /* --- メインレイアウト --- */
@@ -145,25 +168,13 @@ body {
   border-radius: 2px;
 }
 
-.toc-list,
-.toc-list ul {
+.toc-list, .toc-list ul {
   list-style: none;
 }
 
 .toc-list > li {
   margin-bottom: 10px;
   font-weight: 600;
-}
-
-.toc-list ul {
-  margin-top: 6px;
-  margin-left: 20px;
-}
-
-.toc-list ul li {
-  margin-bottom: 6px;
-  font-weight: 400;
-  font-size: 0.95rem;
 }
 
 .toc-list a {
@@ -193,16 +204,6 @@ body {
   font-weight: 700;
 }
 
-.article-body h3 {
-  font-size: 1.25rem;
-  color: #1e293b;
-  margin-top: 36px;
-  margin-bottom: 16px;
-  padding-left: 12px;
-  border-left: 3px solid #0066cc;
-  font-weight: 700;
-}
-
 .highlight {
   background: linear-gradient(transparent 60%, #fff066 60%);
   font-weight: 600;
@@ -227,10 +228,6 @@ body {
   margin-bottom: 12px;
 }
 
-.summary-box li:last-child {
-  margin-bottom: 0;
-}
-
 .summary-box li::before {
   content: "✓";
   position: absolute;
@@ -239,54 +236,81 @@ body {
   font-weight: bold;
 }
 
-/* --- SNSシェアボタン --- */
-.sns-share {
+/* --- 関連記事（リンク用） --- */
+.related-posts {
   margin-top: 60px;
   padding-top: 32px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 2px dashed #e2e8f0;
 }
 
-.sns-title {
-  font-size: 1rem;
+.related-title {
+  font-size: 1.2rem;
   font-weight: 700;
-  text-align: center;
-  color: #475569;
+  color: #0f172a;
   margin-bottom: 20px;
 }
 
-.sns-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
+.related-card {
+  display: block;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.related-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #0066cc;
+}
+
+.related-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0066cc;
+  margin-bottom: 8px;
+}
+
+.related-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.related-card-snippet {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* --- 汎用ボタンデザイン（トップへ戻る等） --- */
 .sns-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 24px;
+  padding: 10px 32px;
   border-radius: 30px;
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .sns-btn:hover {
   transform: translateY(-2px);
   opacity: 0.9;
-}
-
-.x-btn {
-  background-color: #000000;
-}
-
-.line-btn {
-  background-color: #06c755;
 }
 
 /* --- フッター --- */
@@ -301,6 +325,15 @@ body {
 
 /* --- レスポンシブ（スマホ対応） --- */
 @media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-menu ul {
+    gap: 16px;
+  }
+
   .article-container {
     padding: 24px 18px;
     border-radius: 0;
@@ -317,18 +350,5 @@ body {
 
   .article-body h2 {
     font-size: 1.35rem;
-  }
-
-  .article-body h3 {
-    font-size: 1.1rem;
-  }
-
-  .sns-buttons {
-    flex-direction: column;
-  }
-
-  .sns-btn {
-    justify-content: center;
-    width: 100%;
   }
 }
