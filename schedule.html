@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>勉強スケジュール作成ツール | StudyLab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <!-- ヘッダー（ナビに「スケジュール」を追加） -->
+  <header class="site-header">
+    <div class="container header-container">
+      <div class="header-left">
+        <a href="index.html" class="logo">StudyLab</a>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="index.html">トップ</a></li>
+            <li><a href="articles/list.html">勉強法一覧</a></li>
+            <li><a href="schedule.html" class="active">スケジュール</a></li>
+            <li><a href="#" onclick="alert('お問い合わせページ（準備中）'); return false;">お問い合わせ</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="header-tools">
+        <div class="header-timer">
+          <span id="timer-status-badge" class="timer-badge">25分集中</span>
+          <span id="timer-display" class="timer-digits">25:00</span>
+          <button id="timer-start-btn" class="timer-btn primary">▶</button>
+          <button id="timer-reset-btn" class="timer-btn secondary">↺</button>
+        </div>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマ切り替え">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      
+      <header style="margin-bottom: 32px; text-align: center;">
+        <span class="category">学習計画ツール</span>
+        <h1 class="section-heading" style="font-size: 2rem; margin: 8px 0;">My 勉強スケジュール作成</h1>
+        <p style="color: var(--text-sub);">やるべきタスクを可視化して、ポモドーロタイマーと連携しながら効率よく消化しましょう。</p>
+      </header>
+
+      <!-- 計画追加フォーム -->
+      <section class="schedule-form-card">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--text-color);">新しい学習タスクを追加</h2>
+        <form id="schedule-form" class="schedule-form">
+          <div class="form-group">
+            <label for="task-subject">教科・科目</label>
+            <select id="task-subject" required>
+              <option value="数学">📐 数学</option>
+              <option value="英語">📝 英語</option>
+              <option value="国語">📖 国語</option>
+              <option value="理科">🧪 理科</option>
+              <option value="社会">🌍 社会</option>
+              <option value="その他">💡 その他</option>
+            </select>
+          </div>
+
+          <div class="form-group flex-2">
+            <label for="task-title">やる事（具体的に）</label>
+            <input type="text" id="task-title" placeholder="例: ワーク P.20〜25 を解く" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-time">予定時間</label>
+            <select id="task-time">
+              <option value="25分">25分（1ポモ）</option>
+              <option value="50分">50分（2ポモ）</option>
+              <option value="75分">75分（3ポモ）</option>
+              <option value="15分">15分（サクッと）</option>
+            </select>
+          </div>
+
+          <button type="submit" class="add-task-btn">＋ タスク追加</button>
+        </form>
+      </section>
+
+      <!-- スケジュール一覧表示 -->
+      <section class="schedule-list-section">
+        <div class="schedule-header-actions">
+          <h2 style="font-size: 1.3rem; color: var(--text-color);">本日のスケジュール一覧</h2>
+          <button id="clear-completed-btn" class="clear-btn">完了済みを削除</button>
+        </div>
+
+        <div id="schedule-list" class="schedule-list">
+          <!-- JSでタスクカードが動的に挿入されます -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 StudyLab. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
