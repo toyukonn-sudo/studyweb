@@ -3,67 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>勉強法一覧 | StudyLab</title>
+  <title>記事一覧 | StudyLab</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <div id="progress-bar"></div>
 
+  <!-- ヘッダー -->
   <header class="site-header">
     <div class="container header-container">
-      <a href="../index.html" class="logo">StudyLab</a>
-      <nav class="nav-menu">
-        <ul>
-          <li><a href="../index.html">トップ</a></li>
-          <li><a href="list.html">勉強法一覧</a></li>
-          <li><a href="#" onclick="alert('お問い合わせページ（準備中）'); return false;">お問い合わせ</a></li>
-        </ul>
-      </nav>
+      <div class="header-left">
+        <a href="../index.html" class="logo">StudyLab</a>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="../index.html">トップ</a></li>
+            <li><a href="list.html">勉強法一覧</a></li>
+            <li><a href="#" onclick="alert('お問い合わせページ（準備中）'); return false;">お問い合わせ</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="header-tools">
+        <div class="header-timer">
+          <span id="timer-status-badge" class="timer-badge">25分集中</span>
+          <span id="timer-display" class="timer-digits">25:00</span>
+          <button id="timer-start-btn" class="timer-btn primary">▶</button>
+          <button id="timer-reset-btn" class="timer-btn secondary">↺</button>
+        </div>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマ切り替え">🌙</button>
+      </div>
     </div>
   </header>
 
+  <!-- メインコンテンツ -->
   <main class="main-content">
-    <div class="article-container">
-      <header class="article-header">
-        <h1 class="article-title">勉強法一覧</h1>
-        <p style="color: #64748b; margin-bottom: 24px;">すべての記事から、あなたに合った学習法を見つけてください。</p>
+    <div class="container">
+      
+      <header style="margin-bottom: 32px;">
+        <h1 class="section-heading" style="font-size: 1.8rem; margin-bottom: 8px;">勉強法記事一覧</h1>
+        <p style="color: var(--text-sub);">科学根拠に基づいた効率的な学習アプローチをジャンル別に探せます。</p>
       </header>
 
       <section class="related-posts" style="margin-top: 0; padding-top: 0; border-top: none;">
         <div class="related-grid">
           
           <a href="post1.html" class="related-card">
-            <div class="related-tag">復習法</div>
-            <h4 class="related-card-title">脳をダマして定着率を上げる「1・3・7・30」復習スケジュール</h4>
-            <p class="related-card-snippet">最短の努力で長期記憶へ定着させるベストなタイミングを解説。</p>
+            <div class="card-thumbnail thumb-blue">🧠</div>
+            <div class="card-content">
+              <div class="related-tag">復習法</div>
+              <h2 class="related-card-title">脳をダマして定着率を上げる「1・3・7・30」復習スケジュール</h2>
+              <p class="related-card-snippet">最短の努力で長期記憶へ定着させるベストなタイミングとアクティブリコールのコツを解説。</p>
+            </div>
           </a>
 
           <a href="post2.html" class="related-card">
-            <div class="related-tag">高校数学</div>
-            <h4 class="related-card-title">【高校生向け】数学の壁を突破する！「暗記」から「理解」へ変わる勉強法</h4>
-            <p class="related-card-snippet">中学数学と高校数学の違いを理解し、初見の問題が解けるようになるプロセス。</p>
+            <div class="card-thumbnail thumb-green">📐</div>
+            <div class="card-content">
+              <div class="related-tag">高校数学</div>
+              <h2 class="related-card-title">【高校生向け】数学の壁を突破する！「暗記」から「理解」へ変わる勉強法</h2>
+              <p class="related-card-snippet">公式の丸暗記を脱却し、初見の応用問題が解けるようになる「白紙再現法」のプロセス。</p>
+            </div>
           </a>
 
           <a href="post3.html" class="related-card">
-            <div class="related-tag">英検対策</div>
-            <h4 class="related-card-title">【中学生向け】英検®3級・準2級を一発合格！最短ルートの勉強法</h4>
-            <p class="related-card-snippet">配点の高いライティングのコツと、効率的な単語暗記法を徹底解説。</p>
+            <div class="card-thumbnail thumb-purple">📝</div>
+            <div class="card-content">
+              <div class="related-tag">英検対策</div>
+              <h2 class="related-card-title">【中学生向け】英検®3級・準2級を一発合格！最短ルートの勉強法</h2>
+              <p class="related-card-snippet">配点の高いライティングを制するテンプレート活用法と高効率な単語暗記術。</p>
+            </div>
           </a>
 
           <a href="post4.html" class="related-card">
-            <div class="related-tag">資格試験</div>
-            <h4 class="related-card-title">どんな資格試験にも通用する「過去問ベース」の最強勉強法</h4>
-            <p class="related-card-snippet">テキストを最初から読まない！過去問を「参考書」として使う逆転の学習法。</p>
+            <div class="card-thumbnail thumb-orange">📜</div>
+            <div class="card-content">
+              <div class="related-tag">資格試験</div>
+              <h2 class="related-card-title">どんな資格試験にも通用する「過去問ベース」の最強勉強法</h2>
+              <p class="related-card-snippet">テキストを最初から読まない！過去問を「参考書」として使う逆転の学習法。</p>
+            </div>
           </a>
 
           <a href="post5.html" class="related-card">
-            <div class="related-tag">集中力・環境</div>
-            <h4 class="related-card-title">スマホの誘惑に勝つ！勉強に集中するための環境づくり＆デジタルデトックス術</h4>
-            <p class="related-card-snippet">置くだけで集中力が削られる理由と、意志力に頼らず物理的に誘惑を断ち切るテクニック。</p>
+            <div class="card-thumbnail thumb-red">📱</div>
+            <div class="card-content">
+              <div class="related-tag">集中力・環境</div>
+              <h2 class="related-card-title">スマホの誘惑に勝つ！勉強に集中するための環境づくり＆デジタルデトックス術</h2>
+              <p class="related-card-snippet">置くだけで集中力が削られる理由と、意志力に頼らず物理的に誘惑を断ち切るテクニック。</p>
+            </div>
           </a>
 
         </div>
       </section>
+
     </div>
   </main>
 
