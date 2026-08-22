@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>勉強スケジュール作成ツール | StudyLab</title>
+  <title>勉強スケジュール作成・管理 | StudyLab</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="progress-bar"></div>
 
-  <!-- ヘッダー（ナビに「スケジュール」を追加） -->
+  <!-- ヘッダー -->
   <header class="site-header">
     <div class="container header-container">
       <div class="header-left">
@@ -25,29 +25,51 @@
       </div>
 
       <div class="header-tools">
+        <!-- ヘッダータイマー -->
         <div class="header-timer">
           <span id="timer-status-badge" class="timer-badge">25分集中</span>
           <span id="timer-display" class="timer-digits">25:00</span>
           <button id="timer-start-btn" class="timer-btn primary">▶</button>
           <button id="timer-reset-btn" class="timer-btn secondary">↺</button>
         </div>
+        <!-- ナイトモード切替 -->
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマ切り替え">🌙</button>
       </div>
     </div>
   </header>
 
+  <!-- メインコンテンツ -->
   <main class="main-content">
     <div class="container">
       
-      <header style="margin-bottom: 32px; text-align: center;">
-        <span class="category">学習計画ツール</span>
-        <h1 class="section-heading" style="font-size: 2rem; margin: 8px 0;">My 勉強スケジュール作成</h1>
-        <p style="color: var(--text-sub);">やるべきタスクを可視化して、ポモドーロタイマーと連携しながら効率よく消化しましょう。</p>
+      <!-- ページ見出し -->
+      <header class="schedule-page-header">
+        <span class="category">学習計画・進捗管理ツール</span>
+        <h1 class="hero-title" style="font-size: 2rem; margin-top: 8px;">My 勉強スケジュール Planner</h1>
+        <p class="hero-description">
+          今日のやるべきタスクを可視化し、ポモドーロタイマーと連携して順番に撃破していきましょう。データはブラウザに自動保存されます。
+        </p>
       </header>
 
-      <!-- 計画追加フォーム -->
+      <!-- サマリーダッシュボード -->
+      <section class="dashboard-grid">
+        <div class="dash-card">
+          <span class="dash-label">登録タスク数</span>
+          <span id="dash-total-count" class="dash-value">0</span>
+        </div>
+        <div class="dash-card">
+          <span class="dash-label">達成タスク数</span>
+          <span id="dash-completed-count" class="dash-value text-green">0</span>
+        </div>
+        <div class="dash-card">
+          <span class="dash-label">必要ポモドーロ目安</span>
+          <span id="dash-total-pomo" class="dash-value text-blue">0 コマ (0分)</span>
+        </div>
+      </section>
+
+      <!-- タスク追加フォーム -->
       <section class="schedule-form-card">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--text-color);">新しい学習タスクを追加</h2>
+        <h2 class="form-card-title">＋ 新しい学習タスクの追加</h2>
         <form id="schedule-form" class="schedule-form">
           <div class="form-group">
             <label for="task-subject">教科・科目</label>
@@ -57,38 +79,39 @@
               <option value="国語">📖 国語</option>
               <option value="理科">🧪 理科</option>
               <option value="社会">🌍 社会</option>
+              <option value="情報・プログラミング">💻 情報/コード</option>
               <option value="その他">💡 その他</option>
             </select>
           </div>
 
           <div class="form-group flex-2">
-            <label for="task-title">やる事（具体的に）</label>
-            <input type="text" id="task-title" placeholder="例: ワーク P.20〜25 を解く" required>
+            <label for="task-title">タスク内容（具体的に）</label>
+            <input type="text" id="task-title" placeholder="例: チャート式 P.45 演習問題を3問解く" required>
           </div>
 
           <div class="form-group">
-            <label for="task-time">予定時間</label>
-            <select id="task-time">
-              <option value="25分">25分（1ポモ）</option>
-              <option value="50分">50分（2ポモ）</option>
-              <option value="75分">75分（3ポモ）</option>
-              <option value="15分">15分（サクッと）</option>
+            <label for="task-pomo">予想コマ数（1コマ＝25分）</label>
+            <select id="task-pomo">
+              <option value="1">1コマ (25分)</option>
+              <option value="2">2コマ (50分)</option>
+              <option value="3">3コマ (75分)</option>
+              <option value="4">4コマ (100分)</option>
             </select>
           </div>
 
-          <button type="submit" class="add-task-btn">＋ タスク追加</button>
+          <button type="submit" class="add-task-btn">タスクを追加</button>
         </form>
       </section>
 
-      <!-- スケジュール一覧表示 -->
+      <!-- スケジュールタスク一覧 -->
       <section class="schedule-list-section">
         <div class="schedule-header-actions">
-          <h2 style="font-size: 1.3rem; color: var(--text-color);">本日のスケジュール一覧</h2>
-          <button id="clear-completed-btn" class="clear-btn">完了済みを削除</button>
+          <h2 class="section-heading" style="margin-bottom: 0;">本日のタスクリスト</h2>
+          <button id="clear-completed-btn" class="clear-btn">完了済みを消去</button>
         </div>
 
         <div id="schedule-list" class="schedule-list">
-          <!-- JSでタスクカードが動的に挿入されます -->
+          <!-- JavaScriptにより動的に挿入されます -->
         </div>
       </section>
 
