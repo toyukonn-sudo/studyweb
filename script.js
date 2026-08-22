@@ -87,3 +87,93 @@ if (startBtn) {
     });
   }
 }
+// スケジュール機能のロジック
+document.addEventListener('DOMContentLoaded', () => {
+  const scheduleForm = document.getElementById('schedule-form');
+  const scheduleList = document.getElementById('schedule-list');
+  const clearCompletedBtn = document.getElementById('clear-completed-btn');
+
+  if (!scheduleForm || !scheduleList) return;
+
+  // ローカルストレージから取得
+  let tasks = JSON.parse(localStorage.getItem('studylab_tasks')) || [];
+
+  function saveTasks() {
+    localStorage.setItem('studylab_tasks', JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    scheduleList.innerHTML = '';
+
+    if (tasks.length === 0) {
+      scheduleList.innerHTML = `<div class="empty-schedule-msg">📌 まだスケジュールが登録されていません。<br>上のフォームから本日の学習タスクを追加しましょう！</div>`;
+      return;
+    }
+
+    tasks.forEach((task, index) => {
+      const item = document.createElement('div');
+      item.className = `schedule-item ${task.completed ? 'completed' : ''}`;
+      
+      item.innerHTML = `
+        <div class="task-info-left">
+          <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} data-index="${index}">
+          <span class="task-badge">${task.subject}</span>
+          <span class="task-title-text">${escapeHtml(task.title)}</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span class="task-time-badge">⏱ ${task.time}</span>
+          <button class="delete-task-btn" data-index="${index}">✕</button>
+        </div>
+      `;
+
+      scheduleList.appendChild(item);
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+  }
+
+  // タスク追加
+  scheduleForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const subject = document.getElementById('task-subject').value;
+    const title = document.getElementById('task-title').value.trim();
+    const time = document.getElementById('task-time').value;
+
+    if (!title) return;
+
+    tasks.push({ subject, title, time, completed: false });
+    saveTasks();
+    renderTasks();
+
+    document.getElementById('task-title').value = '';
+  });
+
+  // チェック・削除イベント
+  scheduleList.addEventListener('click', (e) => {
+    const index = e.target.dataset.index;
+    if (index === undefined) return;
+
+    if (e.target.classList.contains('task-checkbox')) {
+      tasks[index].completed = e.target.checked;
+      saveTasks();
+      renderTasks();
+    } else if (e.target.classList.contains('delete-task-btn')) {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+  });
+
+  // 完了済み削除
+  if (clearCompletedBtn) {
+    clearCompletedBtn.addEventListener('click', () => {
+      tasks = tasks.filter(task => !task.completed);
+      saveTasks();
+      renderTasks();
+    });
+  }
+
+  renderTasks();
+});
